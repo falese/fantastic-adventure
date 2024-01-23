@@ -1,0 +1,61 @@
+schema {
+  query: Query
+}
+
+directive @oneOf on OBJECT | INTERFACE | INPUT_OBJECT
+
+directive @example(value: ObjMap) repeatable on FIELD_DEFINITION | OBJECT | INPUT_OBJECT | ENUM | SCALAR
+
+directive @statusCodeTypeName(typeName: String, statusCode: ID) repeatable on UNION
+
+directive @globalOptions(sourceName: String, endpoint: String, operationHeaders: ObjMap, queryStringOptions: ObjMap, queryParams: ObjMap) on OBJECT
+
+directive @httpOperation(path: String, operationSpecificHeaders: ObjMap, httpMethod: HTTPMethod, isBinary: Boolean, requestBaseBody: ObjMap, queryParamArgMap: ObjMap, queryStringOptionsByParam: ObjMap) on FIELD_DEFINITION
+
+type Query @globalOptions(sourceName: "Cards", endpoint: "http://localhost:3000") {
+  """
+  
+  >**Method**: `GET`
+  >**Base URL**: `http://localhost:3000`
+  >**Path**: `/cards`
+  Get Card Information
+  
+  """
+  cards: cards_response @httpOperation(path: "/cards", operationSpecificHeaders: "{\"accept\":\"application/json\"}", httpMethod: GET)
+}
+
+union cards_response @statusCodeTypeName(statusCode: 200, typeName: "cards_200_response") @statusCodeTypeName(statusCode: 500, typeName: "cards_500_response") = cards_200_response | cards_500_response
+
+type cards_200_response @example(value: "{\"cardId\":\"CS2_188o\",\"dbfId\":809,\"name\":\"'Inspired'\",\"cardSet\":\"Classic\",\"type\":\"Enchantment\",\"text\":\"This minion has +2 Attack this turn.\",\"playerClass\":\"Neutral\",\"locale\":\"enUS\",\"mechanics\":[{\"name\":\"OneTurnEffect\"}]}") {
+  cardId: String
+  dbfId: Int
+  name: String
+  cardSet: String
+  type: String
+  text: String
+  playerClass: String
+  locale: String
+  mechanics: [query_cards_oneOf_0_mechanics_items]
+}
+
+type query_cards_oneOf_0_mechanics_items {
+  name: String
+}
+
+type cards_500_response @example(value: "{\"error\":\"Internal server error\"}") {
+  error: String
+}
+
+scalar ObjMap
+
+enum HTTPMethod {
+  GET
+  HEAD
+  POST
+  PUT
+  DELETE
+  CONNECT
+  OPTIONS
+  TRACE
+  PATCH
+}

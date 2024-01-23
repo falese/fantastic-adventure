@@ -1,0 +1,15 @@
+{
+    "cardId": "CS2_188o",
+    "dbfId": 809,
+    "name": "'Inspired'",
+    "cardSet": "Classic",
+    "type": "Enchantment",
+    "text": "This minion has +2 Attack this turn.",
+    "playerClass": "Neutral",
+    "locale": "enUS",
+    "mechanics": [
+    {
+        "name": "OneTurnEffect"
+    }
+    ]
+    }

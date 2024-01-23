@@ -1,0 +1,5 @@
+sources:
+  - name: Cards
+    handler:
+      openapi:
+        source: http://localhost:3000/spec

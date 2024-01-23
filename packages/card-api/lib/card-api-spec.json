@@ -1,0 +1,93 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Card API",
+      "version": "1.0.0"
+    },
+    "servers": [{"description": "local", "url": "http://localhost:3000"}],
+    "paths": {
+      "/cards": {
+        "get": {
+          "summary": "Get Card Information",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "cardId": "CS2_188o",
+                    "dbfId": 809,
+                    "name": "'Inspired'",
+                    "cardSet": "Classic",
+                    "type": "Enchantment",
+                    "text": "This minion has +2 Attack this turn.",
+                    "playerClass": "Neutral",
+                    "locale": "enUS",
+                    "mechanics": [
+                      {
+                        "name": "OneTurnEffect"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": "Internal server error"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Card": {
+          "type": "object",
+          "properties": {
+            "cardId": {
+              "type": "string"
+            },
+            "dbfId": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "cardSet": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "playerClass": {
+              "type": "string"
+            },
+            "locale": {
+              "type": "string"
+            },
+            "mechanics": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }

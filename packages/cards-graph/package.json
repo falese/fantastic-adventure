@@ -18,7 +18,8 @@
     "url": "git+https://github.com/falese/fantastic-adventure.git"
   },
   "scripts": {
-    "test": "node ./__tests__/cards-graph.test.js"
+    "test": "node ./__tests__/cards-graph.test.js",
+    "start":"yarn mesh dev"
   },
   "bugs": {
     "url": "https://github.com/falese/fantastic-adventure/issues"
